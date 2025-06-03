@@ -1,0 +1,93 @@
+1. Vencedores do ano de 1950
+sql
+SELECT yr, subject, winner
+FROM nobel
+WHERE yr = 1950;
+
+2. Vencedores de Literatura em 1967
+sql
+SELECT winner
+FROM nobel
+WHERE yr = 1967 AND subject = 'Literature';
+
+3. Ano e assunto de Albert Einstein
+sql
+SELECT yr, subject
+FROM nobel
+WHERE winner = 'Albert Einstein';
+
+4. Vencedores de Paz com ano ≥ 2000
+sql
+SELECT winner
+FROM nobel
+WHERE subject = 'Peace' AND yr >= 2000;
+
+5. Vencedores de Literatura entre 1980 e 1989 (inclusive)
+sql
+SELECT yr, subject, winner
+FROM nobel
+WHERE subject = 'Literature'
+AND yr BETWEEN 1980 AND 1989;
+
+6. Prêmios de Theodore Roosevelt, Woodrow Wilson ou Jimmy Carter
+sql
+SELECT * FROM nobel
+WHERE winner IN ('Theodore Roosevelt', 'Woodrow Wilson', 'Jimmy Carter');
+
+7. Vencedores com primeiro nome "John"
+sql
+SELECT winner
+FROM nobel
+WHERE winner LIKE 'John %';
+
+8. Vencedores de Física em 1980 ou Química em 1984
+sql
+SELECT yr, subject, winner
+FROM nobel
+WHERE (subject = 'Physics' AND yr = 1980)
+OR (subject = 'Chemistry' AND yr = 1984);
+
+9. Vencedores de 1980 excluindo Química e Medicina
+sql
+SELECT yr, subject, winner
+FROM nobel
+WHERE yr = 1980
+AND subject NOT IN ('Chemistry', 'Medicine');
+
+10. Vencedores de Medicina antes de 1910 ou depois de 2000
+sql
+SELECT yr, subject, winner
+FROM nobel
+WHERE subject = 'Medicine'
+AND (yr < 1910 OR yr >= 2000);
+
+11. Prêmio de Peter Grünberg (caractere especial)
+sql
+SELECT * FROM nobel
+WHERE winner = 'Peter Grünberg';
+
+12. Vencedores de 1910 com nome Eugene O'Neill
+sql
+SELECT yr, subject, winner
+FROM nobel
+WHERE yr = 1910
+AND winner = 'Eugene O''Neill';  -- Note as aspas duplas para o apóstrofo
+
+13. Vencedores com sobrenome começando com 'Lawrence'
+sql
+SELECT winner, yr, subject
+FROM nobel
+WHERE winner LIKE '% Lawrence%';
+
+14. Vencedores com primeiro nome de 4 letras (ex: John)
+sql
+SELECT winner, yr, subject
+FROM nobel
+WHERE winner LIKE '____ %';  -- 4 underscores antes do espaço
+
+15. Prêmios de Química de 1984 ordenados por ano e nome
+sql
+SELECT yr, subject, winner
+FROM nobel
+WHERE yr = 1984 AND subject = 'Chemistry'
+ORDER BY winner;
