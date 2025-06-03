@@ -1,0 +1,73 @@
+1. Mostre o matchid e o nome do jogador para todos os gols marcados pela Alemanha (teamid = 'GER')
+sql
+SELECT matchid, player 
+FROM goal 
+WHERE teamid = 'GER';
+2. Mostre id, estádio, time1 e time2 para o jogo com id = 1012
+sql
+SELECT id, stadium, team1, team2
+FROM game
+WHERE id = 1012;
+3. Mostre o jogador, timeid, estádio e data para todos os gols da Alemanha
+sql
+SELECT player, teamid, stadium, mdate
+FROM game JOIN goal ON (game.id = goal.matchid)
+WHERE teamid = 'GER';
+4. Mostre time1, time2 e jogador para todos os gols marcados por jogadores chamados 'Mario'
+sql
+SELECT team1, team2, player
+FROM game JOIN goal ON (game.id = goal.matchid)
+WHERE player LIKE 'Mario%';
+5. Mostre player, teamid, coach e gtime para todos os gols marcados nos primeiros 10 minutos
+sql
+SELECT player, teamid, coach, gtime
+FROM goal JOIN eteam ON (goal.teamid = eteam.id)
+WHERE gtime <= 10;
+6. Mostre as datas dos jogos e os nomes dos times comandados por 'Fernando Santos'
+sql
+SELECT mdate, teamname
+FROM game JOIN eteam ON (game.team1 = eteam.id)
+WHERE coach = 'Fernando Santos';
+7. Mostre o jogador que marcou gols em jogos no estádio 'National Stadium, Warsaw'
+sql
+SELECT player
+FROM game JOIN goal ON (game.id = goal.matchid)
+WHERE stadium = 'National Stadium, Warsaw';
+8. Mostre todos os gols marcados em jogos onde o time marcador era o time2
+sql
+SELECT DISTINCT player
+FROM game JOIN goal ON (game.id = goal.matchid)
+WHERE teamid != team1 AND team1 = team2;
+9. Mostre teamname e o número total de gols marcados
+sql
+SELECT teamname, COUNT(*) AS goals
+FROM eteam JOIN goal ON (eteam.id = goal.teamid)
+GROUP BY teamname;
+10. Mostre o estádio e o número total de gols marcados em cada estádio
+sql
+SELECT stadium, COUNT(*) AS goals
+FROM game JOIN goal ON (game.id = goal.matchid)
+GROUP BY stadium;
+11. Mostre todos os jogos com data, número de gols marcados por 'Polônia'
+sql
+SELECT mdate, team1, SUM(CASE WHEN teamid=team2 THEN 1 ELSE 0 END) AS score2
+FROM game LEFT JOIN goal ON (game.id = goal.matchid)
+WHERE team1 = 'POL' OR team2 = 'POL'
+GROUP BY mdate, team1, team2
+ORDER BY mdate;
+12. Mostre todos os jogos onde a Alemanha marcou
+sql
+SELECT matchid, mdate, COUNT(*) AS goals
+FROM game JOIN goal ON (game.id = goal.matchid)
+WHERE (team1 = 'GER' OR team2 = 'GER') AND teamid = 'GER'
+GROUP BY matchid, mdate;
+13. Mostre o placar (times e gols) de todos os jogos ordenados por data
+sql
+SELECT mdate,
+       team1,
+       SUM(CASE WHEN teamid = team1 THEN 1 ELSE 0 END) AS score1,
+       team2,
+       SUM(CASE WHEN teamid = team2 THEN 1 ELSE 0 END) AS score2
+FROM game LEFT JOIN goal ON (game.id = goal.matchid)
+GROUP BY mdate, team1, team2
+ORDER BY mdate, matchid;
