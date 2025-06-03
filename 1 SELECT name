@@ -1,0 +1,28 @@
+Afghanistan
+Albania
+Algeria
+Andorra
+...
+Zambia
+Zimbabwe
+Variações Úteis:
+Mostrar nome e continente:
+
+1
+sql
+SELECT name, continent 
+FROM world;
+Ordenar por nome alfabeticamente:
+
+2
+sql
+SELECT name 
+FROM world
+ORDER BY name;
+Mostrar apenas os 10 primeiros países:
+
+3
+sql
+SELECT name 
+FROM world
+LIMIT 10;
