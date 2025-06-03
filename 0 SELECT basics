@@ -1,0 +1,17 @@
+1. Mostre a população da Alemanha
+sql
+SELECT population 
+FROM world
+WHERE name = 'Germany';
+
+2. Mostre o nome e a população dos países 'Suécia', 'Noruega' e 'Dinamarca'
+sql
+SELECT name, population 
+FROM world
+WHERE name IN ('Sweden', 'Norway', 'Denmark');
+
+3. Mostre o país e a área para países com área entre 200.000 e 250.000
+sql
+SELECT name, area 
+FROM world
+WHERE area BETWEEN 200000 AND 250000;
